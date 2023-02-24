@@ -118,6 +118,60 @@ DECODE(JOB,
 ) AS BONUS
 FROM EMP;
 
+SELECT EMPNO,ENAME,JOB,SAL,
+    CASE JOB
+        WHEN 'MANAGER'  THEN SAL*1.1
+        WHEN 'SALESMAN' THEN SAL*1.05
+        WHEN 'ANALYST'  THEN SAL
+        ELSE SAL*1.03
+    END AS BONUS
+FROM EMP;
+
+SELECT EMPNO,ENAME,JOB,SAL,
+    CASE 
+        WHEN JOB = 'MANAGER'  THEN SAL*1.1
+        WHEN JOB = 'SALESMAN' THEN SAL*1.05
+        WHEN JOB = 'ANALYST'  THEN SAL
+        ELSE SAL*1.03
+    END AS BONUS
+FROM EMP;
+
+
+-- COMM이 NULL이면 해당사항 없음, COMM 0이면 보너스 없음  COMM 이 있으면 BONUS : 300
+
+
+SELECT EMPNO,ENAME,COMM,
+    CASE 
+        WHEN COMM       IS NULL THEN '해당사항 없음'
+        WHEN COMM = 0           THEN '보너스'     
+        WHEN COMM > 0           THEN '보너스 : ' || COMM
+    END AS BONUS
+FROM EMP;
+
+-- SAL  2900 DIAMOND   2700 GOLD 2000 SILVER BRONZE
+SELECT EMPNO,ENAME,SAL,
+    CASE 
+        WHEN SAL >= 2900        THEN 'DIAMOND'
+        WHEN SAL >= 2700        THEN 'GOLD'     
+        WHEN SAL >= 2000        THEN 'SILVER'
+        ELSE 'BRONZE'
+    END AS GRADE
+FROM EMP;
+
+SELECT ENAME, HIREDATE, TO_CHAR(HIREDATE,'Q') FROM EMP;   
+--1분기 입사 2분기 입사 3분기 입사 4분기 입사
+
+
+SELECT EMPNO, ENAME, 
+    CASE 
+        WHEN TO_CHAR(HIREDATE, 'Q') = '1' THEN '1분기 입사'
+        WHEN TO_CHAR(HIREDATE, 'Q') = '2' THEN '2분기 입사'
+        WHEN TO_CHAR(HIREDATE, 'Q') = '3' THEN '3분기 입사'
+        WHEN TO_CHAR(HIREDATE, 'Q') = '4' THEN '4분기 입사'
+        ELSE '해당사항 없음'
+    END AS 분기별_입사
+FROM EMP;
+
 
 
 
